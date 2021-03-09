@@ -60,7 +60,7 @@
 									<nav>
 										<ul id="navigation">
 											<li><a href="listing.do">국내여행지</a></li>
-											<li><a href="#">커뮤니티</a>
+											<li><a href="review">커뮤니티</a>
 												<ul class="submenu">
 													<li><a href="review">여행후기</a></li>
 													<li><a href="support.do">문의하기</a></li>
@@ -68,25 +68,25 @@
 											</li>
 											<li><a href="use.do">이용방법</a></li>
 											<li><a href="https://www.agoda.com/">호텔예약</a></li>
-											<li class="add-list"><a href="planner?m_id=${LOGINUSER.m_id}"><i class="ti-plus"></i>나의 여행 만들기</a></li>
+											<li id ="plannerBtn" class="add-list"><a onclick="goPlanner()"><i class="ti-plus"></i>나의 여행 만들기</a></li>												
 											<li class="login">									
-									<c:choose>
-											<c:when test="${empty LOGINUSER}">
-												<a href="login.do"><i class="ti-user"></i>로그인 / 회원가입</a>
-											</c:when>
-									<c:otherwise>
 											<c:choose>
-												<c:when test="${LOGINUSER.m_verify eq 0}">
-													<a href="logout.do"><i class="ti-user"></i>${LOGINUSER.m_name} 회원님 로그아웃</a>
-													<li><a href="member.do"><i class="ti-user"></i> 마이페이지</a></li>
-												</c:when>
-											<c:otherwise>
-													<a href="logout.do"><i class="ti-user"></i>${LOGINUSER.m_name} 관리자님 로그아웃</a>
-													<li><a href="dashboard.do"><i class="ti-user"></i> 관리자페이지</a></li>
-											</c:otherwise>
-										    </c:choose>
-									</c:otherwise>
-									</c:choose>
+													<c:when test="${empty LOGINUSER}">
+														<a href="login.do"><i class="ti-user"></i>로그인 / 회원가입</a>
+													</c:when>
+												<c:otherwise>
+													<c:choose>
+														<c:when test="${LOGINUSER.m_verify eq 0}">
+															<a href="logout.do"><i class="ti-user"></i>${LOGINUSER.m_name} 회원님 로그아웃</a>
+															<li><a href="member.do"><i class="ti-user"></i> 마이페이지</a></li>
+														</c:when>
+													<c:otherwise>
+															<a href="logout.do"><i class="ti-user"></i>${LOGINUSER.m_name} 관리자님 로그아웃</a>
+															<li><a href="dashboard.do"><i class="ti-user"></i> 관리자페이지</a></li>
+													</c:otherwise>
+												    </c:choose>
+												</c:otherwise>
+											</c:choose>
 										</li>
 										</ul>
 									</nav>
@@ -123,48 +123,55 @@
 	<body>
 
 	<script>
-	$.getJSON('http://api.openweathermap.org/data/2.5/forecast?id=1835848&APPID=f8b8761c25df03a84389bdbb6a97a6c5&units=metric'
-			,function(data){
-		var $minTemp = data.list[0].main.temp_min;
-		var $maxTemp = data.list[0].main.temp_max;
-		var $humidity = data.list[0].main.humidity;
-		var $type = data.list[0].weather[0].description;
-		var $sky = data.list[0].weather[0].main;
-		var $probability = data.list[0].clouds.all;
-		
-		if($type == "Clouds")
-			$type = "구름";
-		else if($type == "Rain")
-			$type = "비";
-		else
-			$type = "맑음";
-		
-		$('.clowtemp').append($minTemp + "°C");
-		$('.chightemp').append($maxTemp + "°C");
-		$('.chumidity').append($humidity + "%");
-		$('.csky').append($sky);
-		$('.ctype').append($type);
-		$('.cprobability').append($probability + "%");	
-	});
+		if (navigator.geolocation) {
+		    navigator.geolocation.getCurrentPosition(function(position) {		        
+		    	var lat = position.coords.latitude; // 위도
+		    	var lon = position.coords.longitude; // 경도
+		    	getWeather(lat,lon);
+		      });
+		} else { 		    
+		    alert("현재 위치를 가져올 수 없습니다.");
+		}
+		function getWeather(lat,lon) {
+			var url = 'https://api.openweathermap.org/data/2.5/find?lat='+lat+'&lon='+lon+'&cnt=1&APPID=f8b8761c25df03a84389bdbb6a97a6c5&units=metric';
+		    fetch(url)
+		    .then(function(response){ 
+		      return response.json();
+		    }).then(function(data){
+		    	var $minTemp = data.list[0].main.temp_min;
+				var $maxTemp = data.list[0].main.temp_max;
+				var $humidity = data.list[0].main.humidity;
+				var $type = data.list[0].weather[0].description;
+				var $sky = data.list[0].weather[0].main;
+				var $probability = data.list[0].clouds.all;
+				var $cityName = data.list[0].name;
+				if($type == "Clouds")
+					$type = "구름";
+				else if($type == "Rain")
+					$type = "비";
+				else
+					$type = "맑음";
+				$('.clowtemp').append($minTemp + "°C");
+				$('.chightemp').append($maxTemp + "°C");
+				$('.chumidity').append($humidity + "%");
+				$('.csky').append($sky);
+				$('.ctype').append($type);
+				$('.cprobability').append($probability + "%");	
+				$('.cityName').append($cityName);
+		    })
+		}		
 	</script>
-<div class="weather" style="width: auto; position: absolute; top: -220px; right: -400px; color: #fff;">
-<img src="http://openweathermap.org/img/w/02d.png" style="float:left;">
-<div class="csky" style="float: left; width: 20%; font-weight: bold; font-family: sans-serif; margin-top: 12px; margin-left: 5px;"></div>
-<div class="ctype" style="float: left; width: 15%; font-weight: bold; font-family: sans-serif; margin-top: 12px; font-size: 1.0em; margin-left: 6px;"></div>
-<div class="clowtemp" style="float: left; width: 15%; font-weight: bold; margin-top: 12px; color: #2E9AFE; margin-right: 5px;"></div>
-<div class="chightemp" style="float: left; width: 15%; font-weight: bold; margin-top: 12px; color: #FA5858; margin-right:5px;">
-<span style="color: black; margin-right:3px; margin-left:3px">/</span></div>
-<span style="float: left; width: 30%; color: white; margin-right:5px; font-weight: bold; font-size: 1em; font-family: monospace; text-align:right; position: absolute; top: 12px; right: -58px; ">신수동</span>
-
-<!--      	    <div class="cprobability"> - 강수확률: </div>
-			<div class="ctype"> - 강수형태: </div>
-			<div class="csky" style="font:bold;"> - 하늘상태: </div>
-			<div class="chumidity"> - 습도: </div> 
-			<div class="chightemp"> - 낮 최고기온: </div>
-			<div class="clowtemp"> - 아침 최저기온: </div> -->
+	<div class="weather" style="width: 60%;position: absolute;right: -40%;color: #fff;text-align: left;">
+			<img src="http://openweathermap.org/img/w/02d.png" style="float:left;">
+			<div class="csky" style="float: left; width: 20%; font-weight: bold; font-family: sans-serif; margin-top: 12px; margin-left: 5px;"></div>
+			<div class="ctype" style="float: left; width: 15%; font-weight: bold; font-family: sans-serif; margin-top: 12px; font-size: 1.0em; margin-left: 6px;"></div>
+			<div class="clowtemp" style="float: left; width: 15%; font-weight: bold; margin-top: 12px; color: #2E9AFE; margin-right: 5px;"></div>
+			<div class="chightemp" style="float: left; width: 15%; font-weight: bold; margin-top: 12px; color: #FA5858; margin-right:5px;">
+			<span style="color: black; margin-right:3px; margin-left:3px">/</span></div>
+			<div class="cityName" style="float: left; width: 30%; color: white; margin-right:5px; font-weight: bold; font-size: 1em; font-family: monospace; text-align:right; position: absolute; top: 12px; right: -58px; "></div>
 		</div>
-		</body>
-	</html>
+	</body>
+</html>
 	
 	
 		<!-- Hero Caption -->
@@ -555,7 +562,16 @@
 	<div id="back-top">
 		<a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
 	</div>
-
+<script type="text/javascript">
+function goPlanner(){
+	if(${empty LOGINUSER}){
+		alert("로그인 후 이용 가능합니다.");
+		 location.href = "login.do";
+	}else{
+		location.href = "planner?m_id=${LOGINUSER.m_id}";
+	}
+}
+</script>
 
 	<!-- JS here -->
 	<!-- All JS Custom Plugins Link Here here -->

@@ -42,13 +42,11 @@ public class MemberController {
 	}*/
     @PostMapping("/join.do")
 	   public String joinS(@RequestParam(value = "file", required = false) MultipartFile file, Member member) {
-		  
-    	Member member1 = member;
+		  Member member1 = member;
 		  member1 = service.saveStore(member, file);
-		  System.out.println("###"+file);
 		/* String m_fname = file.getName(); */
 	      String m_ofname = file.getOriginalFilename();
-	    System.out.println("###"+member1.getM_fname()+m_ofname);
+	      System.out.println("###"+member1.getM_fname()+m_ofname);
 		/* member1.setM_fname(m_fname); */
 	      member1.setM_ofname(m_ofname);
 	      service.joinS(member);

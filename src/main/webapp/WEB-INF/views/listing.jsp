@@ -67,7 +67,7 @@
 											</li>
 											<li><a href="use.do">이용방법</a></li>
 											<li><a href="https://www.agoda.com/">호텔예약</a></li>
-											<li class="add-list"><a href="planner.do"><i class="ti-plus"></i>나의 여행 만들기</a></li>
+											<li class="add-list"><a onclick="goPlanner()"><i class="ti-plus"></i>나의 여행 만들기</a></li>
 											<li class="login">
 										<c:choose>
 											<c:when test="${empty LOGINUSER}">
@@ -406,7 +406,16 @@
     <div id="back-top" >
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
-
+<script type="text/javascript">
+function goPlanner(){
+	if(${empty LOGINUSER}){
+		alert("로그인 후 이용 가능합니다.");
+		 location.href = "login.do";
+	}else{
+		location.href = "planner?m_id=${LOGINUSER.m_id}";
+	}
+}
+</script>
 
     <!-- JS here -->
 		<!-- All JS Custom Plugins Link Here here -->

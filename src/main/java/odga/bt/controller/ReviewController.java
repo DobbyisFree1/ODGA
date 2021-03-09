@@ -39,8 +39,7 @@ public class ReviewController {
 		String name = file.getName();	
 		review.setB_img(service.saveStore(file));	
 		service.insertS(review);	
-		return "redirect:review"; 
-		
+		return "redirect:review"; 		
 	}
 	@RequestMapping("/support.do")
     public String support(Support support) {
@@ -51,13 +50,7 @@ public class ReviewController {
 		service.insertI(support);
 		return "redirect:index.do";
 	}
-	@GetMapping("/notifications.do")
-	public ModelAndView notifications() {
-		List<Support> notifications = service.notificationsS();
-		ModelAndView mv = new ModelAndView("notifications", "notifications", notifications);
-		return mv;
-	}
-	
+		
 	@GetMapping("review")
 	public ModelAndView review() {	//리퓨 리스팅 페이지
 		List<Review> review = service.reviewS();		

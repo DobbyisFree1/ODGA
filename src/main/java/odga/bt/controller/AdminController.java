@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import odga.bt.domain.Admin;
 import odga.bt.domain.Member;
+import odga.bt.domain.Support;
 import odga.bt.domain.Touritems;
 import odga.bt.service.AdminService;
 import odga.bt.vo.Chart;
@@ -55,4 +57,17 @@ public class AdminController {
    public String user() {
       return "user"; 
    }
+   @GetMapping("/support_list.do") //문의하기 리스트
+	public ModelAndView notifications() {
+		List<Support> notifications = service.notificationsS();
+		ModelAndView mv = new ModelAndView("support_list", "notifications", notifications);
+		return mv;
+	}
+   @GetMapping("/support_content.do") //문의하기 컨텐츠
+	public ModelAndView content(String s_subject) {
+		System.out.println("#subject: " + s_subject);
+		Support support = service.selectByTitle(s_subject);
+		ModelAndView mv = new ModelAndView("support_content", "support", support);
+		return mv;
+	}
 }

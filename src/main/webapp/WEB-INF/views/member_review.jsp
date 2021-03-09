@@ -160,14 +160,15 @@
                                 </div>
 
                                 <div class="blog_details" style="height:250px; width:466px; background-color: #FFFFF0;">
-                                    <a class="d-inline-block" href="review_details.do?b_id=${review.b_id}">
+                                    <a class="d-inline-block" href="review_details?b_id=${review.b_id}&m_id=${LOGINUSER.m_id}">
                                         <h2>${review.b_subject}</h2>
                                     </a>
                                     <p>${review.b_catgo}</p>
                                     <ul class="blog-info-link">
-                                        <li><i class="fa fa-user"></i> ${review.b_writer}</li>
                                        	<li><i class="fa fa-comments"></i> 03 Comments</li>
                                         <li><i class="fa fa-comments"></i> ${review.b_like} Likes</li>
+										<li><a href="update.do?b_id=${review.b_id}">수정</a></li>
+										<li><a href="delete.do?b_id=${review.b_id}&m_id=${review.m_id}">삭제</a></li>
                                     </ul>
                                 </div>
                             </article>

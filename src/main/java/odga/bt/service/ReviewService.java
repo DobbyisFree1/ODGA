@@ -15,10 +15,7 @@ public interface ReviewService {
 	List<Review> reviewS();
 	void insertS(Review review);
 	void insertI(Support support);  //문의하기
-	//문의게시판(관리자)
-	List<Support> notificationsS();
-	//문의게시판상세페이지(관리자)
-	Support selectByTitle(String s_subject);
+	
 	List<Review> selectBestReviewS();
 	//List<Review> selectByReviewS(long m_id);
 	String saveStore(MultipartFile file);

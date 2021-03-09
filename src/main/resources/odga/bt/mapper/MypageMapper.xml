@@ -59,6 +59,18 @@
 	
 	<!-- 나의 여행 후기 -->
 	<select id="selectByReview" parameterType="long" resultType="Review">
- 		select * from BOARD where M_ID=#{M_ID}
- 	</select>
+	select * from BOARD where M_ID=#{M_ID} 
+	</select>
+	
+	<update id="updateByB_id" parameterType="Review">
+	update BOARD set B_SUBJECT=#{b_subject}, B_CONTENT=#{b_content}, B_IMG=#{b_img}, B_CATGO=#{b_catgo} where B_ID=#{b_id}
+	 </update>
+	
+	<update id="updateWithoutImg" parameterType="Review">
+	update BOARD set B_SUBJECT=#{b_subject}, B_CONTENT=#{b_content}, B_CATGO=#{b_catgo} where B_ID=#{b_id} 
+	</update>
+	
+	<delete id="deleteByB_id" parameterType="long">
+	delete from BOARD where B_ID=#{b_id} 
+	</delete>
 </mapper>

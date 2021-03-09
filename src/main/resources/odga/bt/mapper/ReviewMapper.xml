@@ -15,20 +15,10 @@
 		insert into BOARD values(BOARD_ID.nextval, #{b_writer}, #{b_subject}, #{b_content}, #{b_img}, SYSDATE, #{b_catgo}, 0, #{m_id})
  	</insert><!--#{b_like}#{m_id}#{a_id}-->
  		
-	<!-- 문의하기 -->
+	<!-- 문의하기 작성 -->
  	<insert id="insertS" parameterType="Support">
  	 	insert into SUPPORT values(SUPPORT_ID.nextval, #{s_subject}, #{s_content}, SYSDATE, #{m_id})
- 	</insert>
- 	
- 	<!-- 문의하기 리스트 -->
- 	<select id="notifications" resultType="Support">
- 		select * from SUPPORT order by S_ID
- 	</select>
- 	
- 	<!-- 문의하기 상세페이지 -->
- 	<select id="selectByTitle" parameterType="String" resultType="Support">
- 		select * from SUPPORT where S_SUBJECT=#{S_SUBJECT}
- 	</select>
+ 	</insert>	 	
 	
 	<!-- 검색 -->
 	<select id="searchList" resultType="Review" parameterType="map">

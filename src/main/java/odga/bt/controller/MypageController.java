@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import odga.bt.domain.ListResult;
@@ -34,152 +36,153 @@ public class MypageController {
     @Resource
     private TouritemsService tservice;
     
-  //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½
+  //³ªÀÇ ÁÁ¾Æ¿ä
 	@GetMapping("myLike.do")
 	public ModelAndView tables(long m_id) {	
-		//m_id ï¿½Þ¾ï¿½ï¿½Ö±ï¿½
+		//m_id ¹Þ¾ÆÁÖ±â
 		List<Review> mylike = service.listMyLike(m_id);
 		ModelAndView mv = new ModelAndView("myLike","mylike",mylike);
 		return mv; 
 	}
 	@RequestMapping("/member.do")
-	   public String member(HttpSession session) {
-			if(session.getAttribute("LOGINUSER") == null) {
-				return "login";
-			}else {
-				return "member"; 
-			}			
+	   public String member() {
+		   
+	      return "member"; 
 	   }
 	   @RequestMapping("/leaveM")
-	   public String leave(HttpSession session) {
-		   if(session.getAttribute("LOGINUSER") == null) {
-				return "login";
-		   }else {
-			   return "leave"; 
-		   }
+	   public String leave() {
+	      return "leave"; 
 	   }
 	   @RequestMapping("/member_edit.do")
-	   public String member_edit(HttpSession session) {
-		   if(session.getAttribute("LOGINUSER") == null) {
-				return "login";
-		   }else {
-			   return "member_edit"; 
-		   }
+	   public String member_edit() {
+	      return "member_edit"; 
 	   }
-	   //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	   //³ªÀÇ ÀÏÁ¤
 	   @RequestMapping("/member_plan.do")
-	   public ModelAndView member_plan(long m_id,HttpSession session) {
-		   if(session.getAttribute("LOGINUSER") == null) {
-				return new ModelAndView("login");
-		   }else {
-			   System.out.println("###"+m_id);
-			   List<Planner> myPlans = service.myPlanS(m_id);
-	
-			   int min=1, max=15;
-			   for(Planner plan : myPlans) {		   
-				   int ranNum =(int)(Math.random() * (max - min + 1) + min);
-				   String li = ranNum+".jpg";
-				   plan.setRandomImg(li);
-			   }
-			   if(myPlans!=null) return new ModelAndView("myPlan", "myPlans", myPlans);
-			   else {
-				   System.out.println("myPlansï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö³ï¿½?");
-				   return new ModelAndView("myPlan"); 
-			   }
+	   public ModelAndView member_plan(long m_id) {
+		   System.out.println("###"+m_id);
+		   List<Planner> myPlans = service.myPlanS(m_id);
+
+		   int min=1, max=15;
+		   for(Planner plan : myPlans) {		   
+			   int ranNum =(int)(Math.random() * (max - min + 1) + min);
+			   String li = ranNum+".jpg";
+			   plan.setRandomImg(li);
+		   }
+		   if(myPlans!=null) return new ModelAndView("myPlan", "myPlans", myPlans);
+		   else {
+			   System.out.println("myPlansÀÌ µé¾îÀÖ³ª?");
+			   return new ModelAndView("myPlan"); 
 		   }
 	   }
-	   //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	   //ÀÏÁ¤ µðÅ×ÀÏ
 	   @RequestMapping("/plan_detail.do")
-	   public ModelAndView plan_detail(long m_id, long p_id,HttpSession session) {
-		   if(session.getAttribute("LOGINUSER") == null) {
-				return new ModelAndView("login");
-		   }else {
-			   System.out.println(p_id);	   
-			   DetailVo planDetail = service.planDetails(m_id, p_id);
-			   if(planDetail!=null) {
-				   System.out.println(1);
-				   return new ModelAndView("plan_detail", "planDetail", planDetail);
-			   }else{
-				   System.out.println(2);
-				   return new ModelAndView("plan_detail"); 
-			   }	     
-		   }
+	   public ModelAndView plan_detail(long m_id, long p_id) {
+		   System.out.println(p_id);	   
+		   DetailVo planDetail = service.planDetails(m_id, p_id);
+		   if(planDetail!=null) {
+			   System.out.println(1);
+			   return new ModelAndView("plan_detail", "planDetail", planDetail);
+		   }else{
+			   System.out.println(2);
+			   return new ModelAndView("plan_detail"); 
+		   }	       
 	   }
-	   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	   //¸¶ÀÌÆäÀÌÁö ÀÏÁ¤ »èÁ¦
 	   @RequestMapping("delPlan")
-	   public String delPlan(long p_id, long m_id, HttpSession session) {
-		   if(session.getAttribute("LOGINUSER") == null) {
-				return "login";
-		   }else {
-			   //System.out.println("pid : "+p_id+" m_id : "+m_id);
-			   serviceP.delPlan(p_id);
-			   
-			   String view = "forward:/member_plan.do";
-			   return view;
-		   }
+	   public String delPlan(long p_id, long m_id) {
+		   //System.out.println("pid : "+p_id+" m_id : "+m_id);
+		   serviceP.delPlan(p_id);
+		   
+		   String view = "forward:/member_plan.do";
+		   return view;
 	   }
 	   @RequestMapping("/member_review.do")
 	   public ModelAndView member_review(@RequestParam long m_id, HttpServletRequest request) {
 		   HttpSession session = request.getSession();
-		   if(session.getAttribute("LOGINUSER") == null) {
-				return new ModelAndView("login");
-		   }else {
-				System.out.println("#m_id: " + m_id);
-				String cpStr = request.getParameter("cp");
-				String psStr = request.getParameter("ps");
-				//(1) cp 
-						int cp = 1;
-						if(cpStr == null) {
-							Object cpObj = session.getAttribute("cp");
-							if(cpObj != null) {
-								cp = (Integer)cpObj;
+			System.out.println("#m_id: " + m_id);
+			String cpStr = request.getParameter("cp");
+			String psStr = request.getParameter("ps");
+			//(1) cp 
+					int cp = 1;
+					if(cpStr == null) {
+						Object cpObj = session.getAttribute("cp");
+						if(cpObj != null) {
+							cp = (Integer)cpObj;
+						}
+					}else {
+						cpStr = cpStr.trim();
+						cp = Integer.parseInt(cpStr);
+					}
+					session.setAttribute("cp", cp);
+					
+					//(2) ps 
+					int ps = 10;
+					if(psStr == null) {
+						Object psObj = session.getAttribute("ps");
+						if(psObj != null) {
+							ps = (Integer)psObj;
+						}
+					}else {
+						psStr = psStr.trim();
+						int psParam = Integer.parseInt(psStr);
+						
+						Object psObj = session.getAttribute("ps");
+						if(psObj != null) {
+							int psSession = (Integer)psObj;
+							if(psSession != psParam) {
+								cp = 1;
+								session.setAttribute("cp", cp);
 							}
 						}else {
-							cpStr = cpStr.trim();
-							cp = Integer.parseInt(cpStr);
-						}
-						session.setAttribute("cp", cp);
-						
-						//(2) ps 
-						int ps = 10;
-						if(psStr == null) {
-							Object psObj = session.getAttribute("ps");
-							if(psObj != null) {
-								ps = (Integer)psObj;
+							if(ps != psParam) {
+								cp = 1;
+								session.setAttribute("cp", cp);
 							}
-						}else {
-							psStr = psStr.trim();
-							int psParam = Integer.parseInt(psStr);
-							
-							Object psObj = session.getAttribute("ps");
-							if(psObj != null) {
-								int psSession = (Integer)psObj;
-								if(psSession != psParam) {
-									cp = 1;
-									session.setAttribute("cp", cp);
-								}
-							}else {
-								if(ps != psParam) {
-									cp = 1;
-									session.setAttribute("cp", cp);
-								}
-							}
-							
-							ps = psParam;
 						}
-						session.setAttribute("ps", ps);
 						
-					int rangeSize = 10;
-						
-					List<Review> review = service.selectByReviewS(m_id);
-					ListResult listResult = tservice.getTouritemsListResult(cp, ps, rangeSize);
-					ModelAndView mv = new ModelAndView();
-					mv.setViewName("member_review");
-				    mv.addObject("review", review);
-					mv.addObject("listResult", listResult);
-					System.out.println("#review: " + review);
-					return mv;
-		   }
+						ps = psParam;
+					}
+					session.setAttribute("ps", ps);
+					
+				int rangeSize = 10;
+					
+				List<Review> review = service.selectByReviewS(m_id);
+				ListResult listResult = tservice.getTouritemsListResult(cp, ps, rangeSize);
+				ModelAndView mv = new ModelAndView();
+				mv.setViewName("member_review");
+			    mv.addObject("review", review);
+				mv.addObject("listResult", listResult);
+				System.out.println("#review: " + review);
+				return mv;
 
 	   }
+	   @GetMapping("/delete.do")
+		public ModelAndView review_delete(Review review, long b_id, long m_id, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			
+			if(session.getAttribute("LOGINUSER") != null) {
+				service.deleteByB_idS(b_id);
+			}
+			
+			return new ModelAndView("redirect:/member_review.do?m_id="+ review.getM_id(), "review", service.selectByReviewS(m_id));
+		}   
+		
+		@GetMapping("/update.do")
+		public ModelAndView review_update(long b_id) {
+			return new ModelAndView("review/update", "review", rservice.getReviewS(b_id));
+		}  
+		
+		@PostMapping("/update.do")
+		public ModelAndView review_update(Review review, long m_id, MultipartFile file) {
+			
+			try {
+				review.setB_img(rservice.saveStore(file));
+				service.updateByB_idS(review);
+			}catch(Exception e) {
+				service.updateWithoutImgS(review);
+			}
+			
+			return new ModelAndView("redirect:/member_review.do?m_id="+ review.getM_id(), "review", service.selectByReviewS(m_id));
+		}
 }

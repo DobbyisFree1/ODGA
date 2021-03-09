@@ -91,4 +91,18 @@ public class MypageServiceImpl implements MypageService {
 	public List<Review> selectByReviewS(long m_id) {
 		return mypageMapper.selectByReview(m_id);
 	}
+    @Override
+	public void deleteByB_idS(long b_id) {
+		mypageMapper.deleteByB_id(b_id);
+	}
+	
+	@Override
+	public void updateByB_idS(Review review) {
+		mypageMapper.updateByB_id(review);
+	}
+	
+	@Override
+	public void updateWithoutImgS(Review review) {
+		mypageMapper.updateWithoutImg(review);
+	}
 }

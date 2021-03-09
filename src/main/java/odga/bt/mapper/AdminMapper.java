@@ -4,6 +4,7 @@ import java.util.List;
 
 import odga.bt.domain.Admin;
 import odga.bt.domain.Member;
+import odga.bt.domain.Support;
 import odga.bt.domain.Touritems;
 import odga.bt.vo.Chart;
 import odga.bt.vo.GenderChart;
@@ -30,4 +31,9 @@ public interface AdminMapper {
 	
 	//회원리스트
 	List<Member> list();
+	
+	//문의하기 게시판(관리자)
+	List<Support> notifications();
+	//문의게시판 상세페이지(관리자)
+	Support selectByTitle(String s_subject);
 }

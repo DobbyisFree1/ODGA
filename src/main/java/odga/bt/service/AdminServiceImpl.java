@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import odga.bt.domain.Admin;
 import odga.bt.domain.Member;
+import odga.bt.domain.Support;
 import odga.bt.domain.Touritems;
 import odga.bt.mapper.AdminMapper;
 import odga.bt.vo.Chart;
@@ -62,5 +63,15 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Member> m_listS() {
 		return adminMapper.list();
+	}
+	//문의하기리스트
+	@Override
+	public List<Support> notificationsS() {
+		return adminMapper.notifications(); 
+		
+	}
+	@Override
+	public Support selectByTitle(String s_subject) {
+		return adminMapper.selectByTitle(s_subject);
 	}
 }

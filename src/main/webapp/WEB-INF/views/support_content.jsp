@@ -1,17 +1,18 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html; charset=utf-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Material Dashboard Dark Edition by Creative Tim
+    Odga.com
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -21,7 +22,6 @@
   <link href="../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
-  <link href="../assets/css/pointColor.css" rel="stylesheet" />
 </head>
 
 <body class="dark-edition">
@@ -32,62 +32,39 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo"><a href="index.do" class="simple-text logo-normal">
-          <img src="assets/img/logo/logo_b.png" alt="" style="max-width: 170px;">
-        </a></div>
+     <div class="logo">
+        <a href="index.do"><img src="assets/img/logo/logo_b.png" style="position:relative; left:45px; max-width: 170px;"></a>
+      </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <!-- <li class="nav-item  ">
-            <a class="nav-link" href="./dashboard.html">
+          <li class="nav-item  ">
+            <a class="nav-link" href="./dashboard.do">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item ">
-            <a class="nav-link" href="member.do">
+            <a class="nav-link" href="./user.do">
               <i class="material-icons">person</i>
-              <p>내 정보</p>
+              <p>User Profile</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="member_plan.do?m_id=${LOGINUSER.m_id}">
+            <a class="nav-link" href="./tables.do">
               <i class="material-icons">content_paste</i>
-              <p>나의 플래너</p>
+              <p>Table List</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="#">
-              <i class="material-icons">library_books</i>
-              <p>나의 후기</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./myLike.do">
-              <i class="fa fa-heart"></i>
-              <p>나의 좋아요</p>
-            </a>
-          </li>
-          <!-- <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
+            <a class="nav-link" href="./map.do">
               <i class="material-icons">location_ons</i>
               <p>Maps</p>
             </a>
-          </li> -->
-          <li class="nav-item active ">
-            <a class="nav-link" href="leaveM">
-              <i class="material-icons">notifications</i>
-              <p>회원탈퇴</p>
-            </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="logout">             
-              <p style="margin-left: 22%;color: lightpink;font-weight: bold;">로그아웃</p>
+          <li class="nav-item active ">
+            <a class="nav-link" href="./notifications.do">
+              <i class="material-icons">notifications</i>
+              <p>Notifications</p>
             </a>
           </li>
           <!-- <li class="nav-item active-pro ">
@@ -101,10 +78,10 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <!-- <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">회원탈퇴</a>
+            <a class="navbar-brand" href="javascript:void(0)">Notifications</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -158,98 +135,54 @@
             </ul>
           </div>
         </div>
-      </nav> -->
+      </nav>
       <!-- End Navbar -->
-      
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-8">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">회원탈퇴</h4>
-                  <p class="card-category">${LOGINUSER.m_name}님 비밀번호를 입력하시면 최종적으로 회원탈퇴가 진행됩니다.</p>
-                </div>
-                <div class="card-body">
-                  <form action="leaveM" method="post">
-                    <div class="row">
-                      
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">이메일주소</label>
-                          <input type="text" class="form-control" name="m_email" value="${LOGINUSER.m_email}">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">비밀번호</label>
-                          <input type="password" name="m_pwd" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">비밀번호 확인</label>
-                          <input type="password" name="m_pwdcheck" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary pull-right">탈퇴하기</button>
-                    <div class="clearfix"></div>
-                  </form>
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">상세페이지</h4>
+              <p class="card-category">	Odga Member Inquiry
+              </p>
+            </div>
+                <div class="col-md-6">
+                  <h4 class="card-title">Detail page</h4>
+                  <div class="alert alert-info" style="width:200%;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span>
+                      <b> 작성일 - </b> ${support.s_rdate}</span>
+                  </div>
+                  <div class="alert alert-success" style="width:200%;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span>
+                      <b> 글 제목 - </b> ${support.s_subject}</span>
+                  </div>
+                  <div class="alert alert-warning" style="width:200%; height:300px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span>
+                      <b> 글 내용 - </b> ${support.s_content}</span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card card-profile">
-                <div class="card-avatar">
-                  <a>
-                    <img class="img" src="assets/img/profile/${LOGINUSER.m_fname}"/>
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h6 class="card-category">CEO / Co-Founder</h6>
-                  <h4 class="card-title">${LOGINUSER.m_name}님의 추억</h4>
-                  <p class="card-description">
-                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owensâ bed design but the back is...
-                  </p>
-                  <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer">
+            <div class="col-md-12">
+              <div class="places-buttons">
+       <footer class="footer">
         <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <!-- <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li> -->
-            </ul>
-          </nav>
           <div class="copyright float-right" id="date">
-            copyright <i class="material-icons">favorite</i> by
-            <a href="" target="_blank">ODGA</a>
+            , made with <i class="material-icons">favorite</i> by
+            <a href="index.do" target="_blank">Odge.com</a> Made with
+            <a href="https://github.com/lzhxxn" target="_blank">JH</a>
+			<a href="https://github.com/dragongit94" target="_blank">MY</a>
+			<a href="https://github.com/yumgit23" target="_blank">YM</a>
+			<a href="https://github.com/DobbyisFree1" target="_blank">JB</a>
+			<a href="https://github.com/suadeomgit" target="_blank">SH</a>
           </div>
         </div>
       </footer>

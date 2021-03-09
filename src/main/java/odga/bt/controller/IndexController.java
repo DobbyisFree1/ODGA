@@ -18,43 +18,25 @@ public class IndexController {
    private ReviewService rservice;
 	
    @RequestMapping("/")
-   public ModelAndView index(HttpServletRequest request) {
-	  HttpSession session = request.getSession();
+   public ModelAndView index() {
 	  List<Review> review = rservice.selectBestReviewS();
-	  ModelAndView mv = new ModelAndView();
-	  mv.setViewName("index");
-	  session.setAttribute("review", review);
+	  ModelAndView mv = new ModelAndView("index","review", review);
 	  
-	  System.out.println("#review: " + review);
 	  return mv;
    }
    @RequestMapping("/index.do")
-   public ModelAndView index2(HttpServletRequest request) {
-	  HttpSession session = request.getSession();
+   public ModelAndView index2() {
 	  List<Review> review = rservice.selectBestReviewS();
-	  ModelAndView mv = new ModelAndView();
-	  mv.setViewName("index");
-	  session.setAttribute("review", review);
-	  
-	  //System.out.println("#review: " + review);
+	  //ModelAndView mv = new ModelAndView();
+	  ModelAndView mv = new ModelAndView("index","review", review);
+	 // mv.setViewName("index");
+	  //mv.addObject("review", review);
 	  return mv;
 	}
    @RequestMapping("/use")
    public String use() {
       return "use"; 
    }
-   /*@RequestMapping("/member.do")
-   public String member() {
-      return "member"; 
-   }
-   @RequestMapping("/member_edit.do")
-   public String member_edit() {
-      return "member_edit"; 
-   }
-   @RequestMapping("/member_plan.do")
-   public String member_plan() {
-      return "member_plan"; 
-   }*/
    @RequestMapping("/login.do")
    public String login() {
       return "login"; 

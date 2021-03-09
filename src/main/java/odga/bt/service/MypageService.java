@@ -21,4 +21,7 @@ public interface MypageService {
 	public DetailVo planDetails(long m_id, long p_id);
 	//나의후기
 	List<Review> selectByReviewS(long m_id);
+	void deleteByB_idS(long b_id);
+	void updateByB_idS(Review review);
+	void updateWithoutImgS(Review review);
 }

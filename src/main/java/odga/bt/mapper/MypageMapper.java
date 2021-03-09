@@ -27,5 +27,8 @@ public interface MypageMapper {
 	
 	//나의 후기
 	List<Review> selectByReview(long m_id);
+	void deleteByB_id(long b_id);
+	void updateByB_id(Review review);
+	void updateWithoutImg(Review review);
 }
 

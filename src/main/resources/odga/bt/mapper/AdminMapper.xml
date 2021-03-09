@@ -67,4 +67,13 @@
 	<select id="list" resultType="Member">	
 		select * from MEMBER order by M_ID	
 	</select>
+	
+<!-- 문의하기 리스트 -->
+ 	<select id="notifications" resultType="Support">
+ 		select * from SUPPORT order by S_ID
+ 	</select>
+<!-- 문의하기 상세페이지 -->
+ 	<select id="selectByTitle" parameterType="String" resultType="Support">
+ 		select * from SUPPORT where S_SUBJECT=#{S_SUBJECT}
+ 	</select>
 </mapper>

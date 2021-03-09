@@ -36,7 +36,7 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo"><a href="../" class="simple-text logo-normal">
+      <div class="logo"><a href="index.do" class="simple-text logo-normal">
          <img src="assets/img/logo/logo_b.png" alt="" style="max-width: 170px;">
         </a></div>
       <div class="sidebar-wrapper">
@@ -60,9 +60,9 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="member_review.do?m_id=${LOGINUSER.m_id}">
               <i class="material-icons">library_books</i>
-              <p>나의 후기</p>
+              <p>나의 여행후기</p>
             </a>
           </li>
           <li class="nav-item">

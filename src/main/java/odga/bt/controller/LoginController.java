@@ -24,29 +24,22 @@ public class LoginController {
 	private ServletContext servletContext;
 	
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	   private ModelAndView login(@ModelAttribute Member member, HttpSession session, HttpServletResponse response) throws Exception {
-	      
-	      ModelAndView mav = new ModelAndView();
-	      
-	      System.out.println("############### 로그인!!!");
+	   private String login(@ModelAttribute Member member, HttpSession session, HttpServletResponse response) throws Exception {	      	     
 	      Member m1 = service.login(member, response, servletContext);
 	      if(m1 != null) {      
-	         System.out.println("#####"+m1.getM_id());
 	         session.setAttribute("LOGINUSER", m1);
-	         mav.setViewName("index");
-	         return mav;
+	         return "forward:/index.do";
 	      }else {
-	         System.out.println("비밀번호가 다름");
-	         return new ModelAndView("login");
+	         return "login";
 	      }
 	   }
-		//로그아웃 기능 
+		//濡쒓렇�븘�썐 湲곕뒫 
 		@RequestMapping(value = "/logout", method = RequestMethod.GET)
 		private String logout(HttpServletResponse response, HttpSession session) throws Exception {
 			service.logout(response, session);
-			return "index";
+			return "forward:/index.do";
 		}
-		// 이메일&비밀번호 찾기
+		// �씠硫붿씪&鍮꾨�踰덊샇 李얘린
 		@GetMapping("findIdPwd")
 		private String findIdPwd() {
 			return "forgot";

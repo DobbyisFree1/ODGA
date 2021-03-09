@@ -32,7 +32,7 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
+      <div class="logo"><a href="index.do" class="simple-text logo-normal">
           <img src="assets/img/logo/logo_b.png" alt="" style="max-width: 170px;">
         </a></div>
       <div class="sidebar-wrapper">
@@ -62,9 +62,9 @@
             </a>
           </li> --%>
           <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
+            <a class="nav-link" href="./support_list.do">
               <i class="material-icons">library_books</i>
-              <p>Typography</p>
+              <p>문의글 리스트</p>
             </a>
           </li>
           <li class="nav-item ">

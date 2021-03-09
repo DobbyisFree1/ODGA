@@ -52,7 +52,7 @@
 									<!-- Logo -->
 									<div class="col-xl-2 col-lg-2 col-md-1">
 										<div class="logo">
-											<a href="index.html"><img src="assets/img/logo/logo_b.png" alt="" style="max-width: 170px;"></a>
+											<a href="index.do"><img src="assets/img/logo/logo_b.png" alt="" style="max-width: 170px;"></a>
 										</div>
 									</div>
 									<div class="col-xl-10 col-lg-10 col-md-8">
@@ -418,7 +418,7 @@ function savePlanner(){
 	var p_concept = $("#test2 option:selected").val();
 	var p_id = 5;
 	alert("#1"+p_title+"#2"+p_msize+"#3"+p_concept);
-	//location.href='save.do?p_title='+p_title+'&p_msize='+p_msize+'&p_concept='+p_concept+'&p_id='p_id;
+	
 
 }
 </script>
@@ -444,7 +444,7 @@ function savePlanner(){
 	document.fin.concept.value = p_concept;
 	//alert("#1"+p_title+"#2"+p_msize+"#3"+p_concept);
 	//location.href='save.do?p_title='+p_title+'&p_msize='+p_msize+'&p_concept='+p_concept+'&p_id='p_id;
-
+	alert("플래너가 저장 되었습니다. 마이페이지에서 확인 할 수 있습니다.");
 }
 </script>
 

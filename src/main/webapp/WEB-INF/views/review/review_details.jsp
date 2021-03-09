@@ -52,7 +52,7 @@
                           <!-- Logo -->
                           <div class="col-xl-2 col-lg-2 col-md-1">
                               <div class="logo">
-                                 <a href="index.html"><img src="assets/img/logo/logo_b.png" alt="" style="max-width: 170px;"></a>
+                                 <a href="index.do"><img src="assets/img/logo/logo_b.png" alt="" style="max-width: 170px;"></a>
                               </div>
                           </div>
                           <div class="col-xl-10 col-lg-10 col-md-8">
@@ -69,7 +69,7 @@
 											</li>
 											<li><a href="use.html">이용방법</a></li>
 											<li><a href="https://www.agoda.com/">호텔예약</a></li>
-											<li class="add-list"><a href="planner?m_id=${LOGINUSER.m_id}"><i class="ti-plus"></i>나의 여행 만들기</a></li>
+											<li class="add-list"><a onclick="goPlanner()"><i class="ti-plus"></i>나의 여행 만들기</a></li>
 											<li class="login">                           
 			                                    <c:choose>
 			                                          <c:when test="${empty LOGINUSER}">
@@ -479,7 +479,16 @@
   <div id="back-top" >
       <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
   </div>
-
+<script type="text/javascript">
+function goPlanner(){
+	if(${empty LOGINUSER}){
+		alert("로그인 후 이용 가능합니다.");
+		 location.href = "login.do";
+	}else{
+		location.href = "planner?m_id=${LOGINUSER.m_id}";
+	}
+}
+</script>
   <!-- JS here -->
 		<!-- All JS Custom Plugins Link Here here -->
       <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>

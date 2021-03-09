@@ -35,7 +35,7 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo"><a href="../" class="simple-text logo-normal">
+      <div class="logo"><a href="index.do" class="simple-text logo-normal">
           <img src="assets/img/logo/logo_b.png" alt="" style="max-width: 170px;">
         </a></div>
       <div class="sidebar-wrapper">
@@ -65,7 +65,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="myLike.do?m_id=${LOGINUSER.m_id}">
+            <a class="nav-link" href="./myLike.do">
               <i class="fa fa-heart"></i>
               <p>나의 좋아요</p>
             </a>
