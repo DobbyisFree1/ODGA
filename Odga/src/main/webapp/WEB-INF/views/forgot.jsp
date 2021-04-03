@@ -7,21 +7,7 @@
 <link href="../assets/css/login.css" rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 <style>
-.swal-button{
-   background-color: #ff3d1c;
-}
-.swal-button:not([disabled]):hover {
-   background-color: #ff5235;
-}
-.swal-button:hover{
-   background-color: #ff5235;
-}
-.swal-footer {
-   text-align: center;
-}
-.swal-button:focus {
-   box-shadow: none;
-}
+.swal-button{background-color:#ff3d1c}.swal-button:not([disabled]):hover{background-color:#ff5235}.swal-button:hover{background-color:#ff5235}.swal-footer{text-align:center}.swal-button:focus{box-shadow:none}
 </style>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>

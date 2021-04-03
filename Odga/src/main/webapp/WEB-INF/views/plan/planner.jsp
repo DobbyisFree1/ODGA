@@ -30,40 +30,7 @@
 			<link rel="stylesheet" href="assets/css/planner.css">
 		</head>
 <style>
-.swal-button--확인:not([disabled]):hover {
-    background-color: #ff5235;
-}
-.swal-button--확인{
-	background-color: #ff3d1c;
-}
-.swal-button--확인:hover{
-	background-color: #ff5235;
-}
-.swal-button--확인:active {
- background-color:#ff5235
-}
-.swal-button--확인하기:not([disabled]):hover {
-    background-color: #ff5235;
-}
-.swal-button--확인하기{
-	background-color: #ff3d1c;
-}
-.swal-button--확인하기:hover{
-	background-color: #ff5235;
-}
-.swal-button--홈으로 {
- color:#555;
- background-color:#efefef
-}
-.swal-button--홈으로:not([disabled]):hover {
- background-color:#e8e8e8
-}
-.swal-button--홈으로:active {
- background-color:#d7d7d7
-}
-.swal-button--홈으로:focus {
- box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(116,136,150,.29)
-}
+.swal-button--확인:not([disabled]):hover{background-color:#ff5235}.swal-button--확인{background-color:#ff3d1c}.swal-button--확인:hover{background-color:#ff5235}.swal-button--확인:active{background-color:#ff5235}.swal-button--확인하기:not([disabled]):hover{background-color:#ff5235}.swal-button--확인하기{background-color:#ff3d1c}.swal-button--확인하기:hover{background-color:#ff5235}.swal-button--홈으로{color:#555;background-color:#efefef}.swal-button--홈으로:not([disabled]):hover{background-color:#e8e8e8}.swal-button--홈으로:active{background-color:#d7d7d7}.swal-button--홈으로:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(116,136,150,.29)}
 </style>
 		<body>
 			<!-- Preloader Start -->
@@ -583,50 +550,50 @@ function savePlanner(){
 <script type="text/javascript">
 
 function changes(fr) {
-	var li = new Array();
-	var li2 = new Array();
-	var num = new Array();
-	var vnum = new Array();
-	var latitude = 0;
-	var longitude = 0;
-	var k = 0;
+   var li = new Array();
+   var li2 = new Array();
+   var num = new Array();
+   var vnum = new Array();
+   var latitude = 0;
+   var longitude = 0;
+   var k = 0;
 
-	<c:set var="list" value="${list}"/>
-	<c:forEach items="${list.list}" var="area">
+   <c:set var="list" value="${list}"/>
+   <c:forEach items="${list.list}" var="area">
     if(fr==${area.areacode}) {
-    	li.push("세부 지역");
-    	li2.push("");
-    	<c:forEach items="${list.list_s}" var="sigungu">
-    		if(${area.areacode}==${sigungu.areacode}){
-	    		li.push("${sigungu.si_name}");
-	    		li2.push("${sigungu.sigungucode}");
-    		}
-    	</c:forEach>
-		num = li;
-		vnum = li2;
+       li.push("세부 지역");
+       li2.push("");
+       <c:forEach items="${list.list_s}" var="sigungu">
+          if(${area.areacode}==${sigungu.areacode}){
+             li.push("${sigungu.si_name}");
+             li2.push("${sigungu.sigungucode}");
+          }
+       </c:forEach>
+      num = li;
+      vnum = li2;
 
-		latitude=${area.latitude};
-		longitude=${area.longitude};		
+      latitude=${area.latitude};
+      longitude=${area.longitude};      
     }else if(fr==""){
-    	if(k=0){
-	    	li.push("세부 지역");
-	    	li2.push("");
-	    	k++;
-	    	num = li;
-			vnum = li2;
-    	}
-    	latitude=37.56682;
-		longitude=126.97865;  	
+       if(k=0){
+          li.push("세부 지역");
+          li2.push("");
+          k++;
+          num = li;
+         vnum = li2;
+       }
+       latitude=37.56682;
+      longitude=126.97865;     
     }
     </c:forEach>
   // 셀렉트안의 리스트를 기본값으로 한다..
-	$('#sigungu').empty();
-	  //포문을 이용하여 두번째(test2)셀렉트 박스에 값을 뿌려줍니당)
-	for(var i=0; i<num.length;i++) {
-	  document.form.sigungu.options[i] = new Option(num[i],vnum[i]);
-	}
-	
-	// 이동할 위도 경도 위치를 생성합니다 
+   $('#sigunguCode').empty();
+     //포문을 이용하여 두번째(test2)셀렉트 박스에 값을 뿌려줍니당)
+   for(var i=0; i<num.length;i++) {
+     document.form.sigungu.options[i] = new Option(num[i],vnum[i]);
+   }
+   
+   // 이동할 위도 경도 위치를 생성합니다 
     var moveLatLon = new kakao.maps.LatLng(latitude, longitude);
     
     // 지도 중심을 이동 시킵니다
@@ -1078,21 +1045,23 @@ function goSupport(){
 	}
 }
 function logout(){
-	  swal({
-			text: "로그아웃 하시겠습니까 ?",
-			buttons:{"확인":true,cancel:"취소"},
-			}).then((value) => {
-				if(value){
-					 swal({
-							text: "로그아웃 되었습니다.",
-							buttons:{"확인":true},
-							}).then((value) => {
-								if(value){
-									location.href="logout.do";
-								}
-							});				
-				}
-			});  
+    swal({
+        text: "로그아웃 하시겠습니까 ?",
+        buttons:{"확인":true,cancel:"취소"},
+        }).then((value) => {
+           if(value){
+               swal({
+                    text: "로그아웃 되었습니다.",
+                    buttons:{"확인":true},
+                    }).then((value) => {
+                       if(value){
+                          location.href="logout.do";
+                       }else{
+                          location.href="logout.do";
+                       }
+                    });            
+           }
+        });  
 }
 function sweetAlert(text){
 	swal({

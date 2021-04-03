@@ -25,40 +25,8 @@
   <link rel="stylesheet" media="all" href="assets/css/list.css" />
 </head>
 <style>
-.swal-button--홈으로 {
- color:#555;
- background-color:#efefef
-}
-.swal-button--홈으로:not([disabled]):hover {
- background-color:#e8e8e8
-}
-.swal-button--홈으로:active {
- background-color:#d7d7d7
-}
-.swal-button--홈으로:focus {
- box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(116,136,150,.29)
-}
-.swal-button--로그인 {
- background-color:#ff3d1c
-}
-.swal-button--로그인:not([disabled]):hover {
- background-color:#ff5235
-}
-.swal-button--로그인:active {
- background-color:#ff5235
-}
-.swal-button--확인 {
- background-color:#ff3d1c
-}
-.swal-button--확인:not([disabled]):hover {
- background-color:#ff5235
-}
-.swal-button--확인:active {
- background-color:#ff5235
-}
-.nav-link{
-   cursor: pointer;
-}
+.swal-button--홈으로{color:#555;background-color:#efefef}.swal-button--홈으로:not([disabled]):hover{background-color:#e8e8e8}.swal-button--홈으로:active{background-color:#d7d7d7}.swal-button--홈으로:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(116,136,150,.29)}.swal-button--로그인{background-color:#ff3d1c}.swal-button--로그인:not([disabled]):hover{background-color:#ff5235}.swal-button--로그인:active{background-color:#ff5235}.swal-button--확인{background-color:#ff3d1c}.swal-button--확인:not([disabled]):hover{background-color:#ff5235}.swal-button--확인:active{background-color:#ff5235}
+.nav-link{cursor:pointer}
 </style>
 <body class="dark-edition">
   <div class="wrapper ">
@@ -131,49 +99,49 @@
                   <p class="card-category">당신의 플래너를 확인하세요!</p>
                 </div>
                <div class="card-body">
-                 <div class="card-container">
-                 <c:choose>                
-                   <c:when test="${not empty myPlans.planner}"> 
-                      <c:set var="k" value="${myPlans.planner.size()}" /> 
-                        <c:set var="i" value="0" />
-                              <c:forEach var="j" begin="0" end="${k-1}" step="1">
-                              <c:set var="plan"  value="${myPlans}" />
-                              <c:set var="planner"  value="${myPlans.planner}" />
-                              <c:set var="p_img"  value="${myPlans.p_img}" />                  
-                             <a class="card-item">
-                               <div class="card">
-                                 <div class="side front">
-                                  <c:forEach var="p_img" items="${p_img}" begin="${i}" end="${i}">
-                                  <c:choose>
-                                  <c:when test="${not empty p_img.firstimage}">
-                                      <div class="img" style='background-image:url(${p_img.firstimage});'></div>
-                                     </c:when>
-                                     <c:otherwise>
-                                        <div class="img" style='background-image:url(/resources/upload/insteadimg.png);'></div>
-                                     </c:otherwise>   
-                                     </c:choose>                          
-                                   </c:forEach>
-                                   <c:forEach var="planner" items="${planner}" begin="${i}" end="${i}">
-                                   <div class="info" onclick="goDetail(${planner.m_id},${planner.p_id})" style="cursor:pointer">
-                                      <h2 class="title">${planner.p_title}</h2>
-                                      <p class="author">${planner.p_msize}</p>
-                                      <p class="content">${planner.p_concept}</p>
-                                   </div>
-                                   </c:forEach>
-                                   <c:set var="i" value="${i+1}"/>
-                                 </div>
-                               </div>
-                             </a>
-                       </c:forEach>
-                    </c:when>
-                    <c:otherwise>   
-                       <div>
-                          <h3>등록한 플랜이 없습니다.</h3>
-                       </div>
-                    </c:otherwise>
-                 </c:choose> 
-               </div>
-               </div>
+	              <div class="card-container">
+	              <c:choose>                
+	                <c:when test="${not empty myPlans.planner}"> 
+	                   <c:set var="k" value="${myPlans.planner.size()}" /> 
+	                     <c:set var="i" value="0" />
+	                           <c:forEach var="j" begin="0" end="${k-1}" step="1">
+	                           <c:set var="plan"  value="${myPlans}" />
+	                           <c:set var="planner"  value="${myPlans.planner}" />
+	                           <c:set var="p_img"  value="${myPlans.p_img}" />                  
+	                          <a class="card-item">
+	                            <div class="card">
+	                              <div class="side front">
+	                               <c:forEach var="p_img" items="${p_img}" begin="${i}" end="${i}">
+	                               <c:choose>
+	                               <c:when test="${not empty p_img.firstimage}">
+	                                   <div class="img" style='background-image:url(${p_img.firstimage});'></div>
+	                                  </c:when>
+	                                  <c:otherwise>
+	                                  	<div class="img" style='background-image:url(/resources/upload/insteadimg.png);'></div>
+	                                  </c:otherwise>   
+	                                  </c:choose>                          
+	                                </c:forEach>
+	                                <c:forEach var="planner" items="${planner}" begin="${i}" end="${i}">
+	                                <div class="info" onclick="goDetail(${planner.m_id},${planner.p_id})" style="cursor:pointer">
+	                                   <h2 class="title">${planner.p_title}</h2>
+	                                   <p class="author">${planner.p_msize}</p>
+	                                   <p class="content">${planner.p_concept}</p>
+	                                </div>
+	                                </c:forEach>
+	                                <c:set var="i" value="${i+1}"/>
+	                              </div>
+	                            </div>
+	                          </a>
+	                    </c:forEach>
+	                 </c:when>
+	                 <c:otherwise>   
+	                    <div>
+	                       <h3>등록한 플랜이 없습니다.</h3>
+	                    </div>
+	                 </c:otherwise>
+	              </c:choose> 
+	            </div>
+	            </div>
             </div>          
           </div>
         </div>
@@ -187,12 +155,12 @@
           </nav>
           <div class="copyright float-right" id="date">
            ODGA.com <i class="material-icons">favorite</i>Made by
-                  <a href="" target="_blank"></a> 
-                  <a href="https://github.com/lzhxxn" target="_blank">JH</a>
-                  <a href="https://github.com/dragongit94" target="_blank">MY</a>
-                 <a href="https://github.com/yumgit23" target="_blank">YM</a>
-                  <a href="https://github.com/DobbyisFree1" target="_blank">JB</a>
-                  <a href="https://github.com/suadeomgit" target="_blank">SH</a>
+		            <a href="" target="_blank"></a> 
+		            <a href="https://github.com/lzhxxn" target="_blank">JH</a>
+		         	<a href="https://github.com/dragongit94" target="_blank">MY</a>
+		        	<a href="https://github.com/yumgit23" target="_blank">YM</a>
+		         	<a href="https://github.com/DobbyisFree1" target="_blank">JB</a>
+		         	<a href="https://github.com/suadeomgit" target="_blank">SH</a>
           </div>
         </div>
       </footer>
@@ -224,67 +192,69 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script type="text/javascript">
   function goOthers(name){
-      if(${LOGINUSER.m_id eq null}){
-         swal({
-            title: "세션만료 !",
-            text: "로그인 후 이용 가능합니다.",
-            buttons:{"로그인":"로그인","홈으로":"홈으로"},
-            }).then((value) => {
-               if(value==="로그인"){
-                  location.href = "login.do";
-               }else if (value==="홈으로"){
-                  location.href = "index.do";
-               }
-            });
-         }else{
-            if(name=="goPlan"){
-               location.href = "member_plan.do?m_id=${LOGINUSER.m_id}";
-            }else if(name=="goReview"){
-               location.href = "member_review.do?m_id=${LOGINUSER.m_id}";
-            }else if(name=="goLike"){
-               location.href ="myLike.do?m_id=${LOGINUSER.m_id}";
-            }else if(name=="goSupport"){
-               location.href ="support_mlist.do?m_id=${LOGINUSER.m_id}";
-            }else if(name=="goMember"){
-               location.href ="member.do";
-            }else if(name=="goDetail"){
-               location.href ="plan_detail.do?m_id=${plan.m_id}&p_id=${plan.p_id}";
-            }
-         }
-      }
+		if(${LOGINUSER.m_id eq null}){
+			swal({
+				title: "세션만료 !",
+				text: "로그인 후 이용 가능합니다.",
+				buttons:{"로그인":"로그인","홈으로":"홈으로"},
+				}).then((value) => {
+					if(value==="로그인"){
+						location.href = "login.do";
+					}else if (value==="홈으로"){
+						location.href = "index.do";
+					}
+				});
+			}else{
+				if(name=="goPlan"){
+					location.href = "member_plan.do?m_id=${LOGINUSER.m_id}";
+				}else if(name=="goReview"){
+					location.href = "member_review.do?m_id=${LOGINUSER.m_id}";
+				}else if(name=="goLike"){
+					location.href ="myLike.do?m_id=${LOGINUSER.m_id}";
+				}else if(name=="goSupport"){
+					location.href ="support_mlist.do?m_id=${LOGINUSER.m_id}";
+				}else if(name=="goMember"){
+					location.href ="member.do";
+				}else if(name=="goDetail"){
+					location.href ="plan_detail.do?m_id=${plan.m_id}&p_id=${plan.p_id}";
+				}
+			}
+		}
   function logout(){
-     swal({
-         text: "로그아웃 하시겠습니까 ?",
-         buttons:{"확인":true,cancel:"취소"},
-         }).then((value) => {
-            if(value){
-                swal({
-                     text: "로그아웃 되었습니다.",
-                     buttons:{"확인":true},
-                     }).then((value) => {
-                        if(value){
-                           location.href="logout.do";
-                        }
-                     });            
-            }
-         });  
-}
+	     swal({
+	         text: "로그아웃 하시겠습니까 ?",
+	         buttons:{"확인":true,cancel:"취소"},
+	         }).then((value) => {
+	            if(value){
+	                swal({
+	                     text: "로그아웃 되었습니다.",
+	                     buttons:{"확인":true},
+	                     }).then((value) => {
+	                        if(value){
+	                           location.href="logout.do";
+	                        }else{
+	                           location.href="logout.do";
+	                        }
+	                     });            
+	            }
+	         });  
+	}
   function goDetail(m_id,p_id){
-     if(${LOGINUSER.m_id eq null}){
-         swal({
-            title: "세션만료 !",
-            text: "로그인 후 이용 가능합니다.",
-            buttons:{"로그인":"로그인","홈으로":"홈으로"},
-            }).then((value) => {
-               if(value==="로그인"){
-                  location.href = "login.do";
-               }else if (value==="홈으로"){
-                  location.href = "index.do";
-               }
-            });
-         }else{         
-               location.href ="plan_detail.do?m_id="+m_id+"&p_id="+p_id;
-         }
+	  if(${LOGINUSER.m_id eq null}){
+			swal({
+				title: "세션만료 !",
+				text: "로그인 후 이용 가능합니다.",
+				buttons:{"로그인":"로그인","홈으로":"홈으로"},
+				}).then((value) => {
+					if(value==="로그인"){
+						location.href = "login.do";
+					}else if (value==="홈으로"){
+						location.href = "index.do";
+					}
+				});
+			}else{			
+					location.href ="plan_detail.do?m_id="+m_id+"&p_id="+p_id;
+			}
   }
 </script>
 </body>
